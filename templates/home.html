@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Created By CodingNepal - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'style4.css' %}">
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label> 
+      <label class="logo">NoteX</label>
+      <ul>
+        {% if user.is_authenticated %}
+        <li><a href="createnote">Create Note</a></li>
+        <li><a href="show">Explore</a></li>
+        <li id="nm">{{ user.username }}</li>
+        <li><a href="logout">Logout</a></li>
+        {% else %}
+        <li><a href="/">Home</a></li>
+        <li><a href="createnote">Create Note</a></li>
+        <li><a href="show">Explore</a></li>
+        <li><a href="register">Register</a></li>
+        <li><a href="login">Login</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    <h2>Simple way to make notes</h2>
+    <p id="str">You can simply create your notes and can views notes with the tags realte to them that are avialable according to your requirments For to create your own notes <a href="register">Signu up</a></p>
+    <p id="or">OR <a href="login">Login here</a></p>
+  </body>
+</html>

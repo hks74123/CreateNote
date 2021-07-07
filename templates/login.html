@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Here</title>
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'style3.css' %}">
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo">NoteX</label>
+        <ul>
+        {% if user.is_authenticated %}
+        <li><a href="createnote">Create Note</a></li>
+        <li><a href="show">Explore</a></li>
+        <li id="nm">{{ user.username }}</li>
+        <li><a href="logout">Logout</a></li>
+        {% else %}
+        <li><a href="/">Home</a></li>
+        <li><a href="createnote">Create Note</a></li>
+        <li><a href="show">Explore</a></li>
+        <li><a href="register">Register</a></li>
+        <li><a href="login">Login</a></li>
+        {% endif %}
+        </ul>
+      </nav>
+    <form action="login" method="POST">
+        {% csrf_token %}
+        <div class="sgn">
+            <input class="user_name" type="text" name="ul_name" placeholder="Username">
+            <input class="pass" type="password" name="lpass" placeholder="Password">
+            <button type="submit">Login</button>
+        </div>
+    </form>
+    {% for message in messages %}
+    <h3>{{ message }}</h3>
+    {% endfor %}
+</body>
+</html>
