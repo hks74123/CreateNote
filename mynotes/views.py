@@ -1,5 +1,4 @@
 from django.core.checks import messages
-from django.http import request
 from django.shortcuts import redirect, render
 from hksnote.models import *
 from django.contrib import messages
@@ -36,7 +35,7 @@ def go(request):
 
 def notefilt(request):
     if request.user.is_authenticated:
-        hh=mynt.objects.filter(Title=User.first_name)
+        hh=mynt.objects.filter(tid = request.user)
         ll=len(hh)
         ddd=1
         if hh.exists():
@@ -49,9 +48,10 @@ def notefilt(request):
         return render(request,'login.html')
 
 def createpost(request): 
-    if request.method=='POST':
+    if request.method=='POST' and request.user.is_authenticated:
         if request.POST.get('title') and request.POST.get('tags') and request.POST.get('note'):
             pst=mynt()
+            pst.tid = request.user
             pst.Title=request.POST.get('title')
             pst.Tag=request.POST.get('tags')
             pst.Note=request.POST.get('note')
@@ -60,7 +60,8 @@ def createpost(request):
             ll=len(hh)
             return render(request,'done.html', {'hkk':hh,'l':ll})
         else:
-            return render(request,'index.html')   
+            return render(request,'index.html')  
+    return redirect('/') 
 
 def register(request):
     if request.method=='POST':
